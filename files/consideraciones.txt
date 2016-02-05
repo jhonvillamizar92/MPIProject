@@ -1,0 +1,41 @@
+* Consideraciones
+
+En nuestro caso estamos empezando con sólo 2 procesos. 
+Algunos de los procesos llegan a un funcionamiento colectivo, 
+y algunos lanzan una excepción antes de llegar al funcionamiento colectivo. 
+Aparentemente un error de versiones sobre (mpich2)
+
+* Posibles soluciones: 
+
+-Comentar funciones por separado y probar (No funciona)
+-Todas comentadas y probar (No funciona)
+
+* Uso de Flags:
+
+--disable-hostname-propagation (No funciona)
+--disable-auto-cleanup (No funciona)
+--host (No funciona)
+
+
+
+* Paginas
+http://lists.mcs.anl.gov/pipermail/mpich-discuss/2011-July/010423.html 
+
+
+* Ejecución del programa en el cluster
+
+a) Para acceder al cluster es con el terminal a traves de: ssh alvaro92091@159.90.28.21
+
+b) La contraseña es 123456.
+
+c) Luego de esto, se pueden enviar a través de scp todos los archivos que están en este comprimido.
+
+d) Para ejecutar el programa se encuentra en la carpeta Programa Fuente. Su nombre es: puzzle.c.
+
+e) En la carpeta Ejemplos aparecen cinco ejemplos de archivos txt que sirven como entrada para probar el programa.
+
+f) Compilación: mpicc -w puzzle.c -o nombreejecutable (nombreejecutable cualquier nombre del .o que desee colocarle).
+
+g) Ejecución: mpiexec -n numeroprocesos -f maquinas.txt ./nombreejecutable Ejemplos/ejemploi.txt (Donde i es el numero del archivo de texto ejemplo de la sopa de letras que se desee probar 0,1,2,3,4).
+
+h) En numeroprocesos se pueden colocar los procesos a crear para ejecutar paralelamente este programa. Si se colocan 2. El programa se ejecutará correctamente. Si es n > 2, salen los errores con MPI_Send().
